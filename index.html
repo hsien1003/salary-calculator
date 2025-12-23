@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <title>Ning's Salary · 小貓貓 x 大狗狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #fff5fb, #f5f7ff);
+      --card-bg: #ffffff;
+      --accent: #ff8fb3;          /* 小貓貓粉 */
+      --accent-strong: #ff5f96;
+      --accent-dog: #ffb347;      /* 大狗狗金色 */
+      --accent-soft: rgba(255, 143, 179, 0.1);
+      --text-main: #222222;
+      --text-muted: #777777;
+      --border-subtle: #f0e3f4;
+      --danger: #f0625f;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      padding: 14px;
+      display: flex;
+      justify-content: center;
+    }
+
+    main {
+      width: 100%;
+      max-width: 520px; /* 手機優先 */
+    }
+
+    header {
+      margin-bottom: 14px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    header h1 span.icon {
+      font-size: 1.5rem;
+    }
+
+    header p {
+      margin: 4px 0 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .tagline {
+      margin-top: 4px;
+      font-size: 0.8rem;
+      color: var(--accent-strong);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 14px 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+    }
+
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-title span.badge {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .field {
+      flex: 1 1 140px;
+      min-width: 140px;
+    }
+
+    label {
+      font-size: 0.8rem;
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-muted);
+    }
+
+    input[type="date"],
+    input[type="time"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      font-size: 0.9rem;
+      outline: none;
+      background: #fff9fd;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    input[type="date"]:focus,
+    input[type="time"]:focus,
+    input[type="number"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(255, 143, 179, 0.4);
+      background: #ffffff;
+    }
+
+    input[type="checkbox"] {
+      transform: scale(1.1);
+      margin-right: 6px;
+    }
+
+    .checkbox-inline {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.85rem;
+      margin-top: 4px;
+      color: var(--text-main);
+    }
+
+    .muted {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+      margin-bottom: 4px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #fff2f7;
+      font-size: 0.8rem;
+      color: var(--accent-strong);
+      border: 1px solid rgba(255, 143, 179, 0.3);
+      white-space: nowrap;
+    }
+
+    .pill.dog {
+      background: #fff7ec;
+      color: #bf7b1a;
+      border-color: rgba(255, 179, 71, 0.4);
+    }
+
+    .pill strong {
+      font-weight: 600;
+    }
+
+    button {
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-dog));
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(255, 143, 179, 0.45);
+      justify-content: center;
+    }
+
+    button.primary:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 6px rgba(255, 143, 179, 0.5);
+    }
+
+    button.danger {
+      background: var(--danger);
+      color: #ffffff;
+      justify-content: center;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 6px;
+    }
+
+    /* 記錄列表變成「一條一條簡潔版」 */
+    .records-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .record-card {
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      background: #fffdfd;
+      padding: 6px 8px;
+      font-size: 0.78rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .record-left {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .record-date-line {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 600;
+    }
+
+    .record-date-line span.icon {
+      font-size: 1rem;
+    }
+
+    .record-time {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .record-hours {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .record-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .record-pay {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .record-pay span.icon {
+      font-size: 1rem;
+    }
+
+    .summary-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .summary-item {
+      flex: 1 1 140px;
+      min-width: 140px;
+      border-radius: 12px;
+      background: #fff9fd;
+      border: 1px solid var(--border-subtle);
+      padding: 6px 8px;
+      font-size: 0.78rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .summary-item strong {
+      font-size: 0.9rem;
+    }
+
+    .summary-label {
+      color: var(--text-muted);
+    }
+
+    .chip-empty {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding-top: 4px;
+    }
+
+    .section-label-small {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      margin-bottom: 2px;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      header h1 {
+        font-size: 1.35rem;
+      }
+      .card {
+        padding: 12px 10px;
+        border-radius: 16px;
+      }
+      .row {
+        flex-direction: column;
+      }
+      .field {
+        width: 100%;
+      }
+      .btn-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-row button {
+        width: 100%;
+      }
+      .summary-item {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>
+        <span class="icon">🐱🐶</span>
+        Ning's Salary
+      </h1>
+      <p>小貓貓的打工班表，交給大狗狗幫妳算好薪水。</p>
+      <div class="tagline">
+        <span>💗</span> 10 分鐘為單位，自動幫妳切 8 小時 / 9–10 / 11 小時以上。
+      </div>
+    </header>
+
+    <!-- 基本設定 -->
+    <section class="card">
+      <div class="card-title">
+        基本設定
+        <span class="badge">Step 0</span>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="wage">時薪（元）</label>
+          <input type="number" id="wage" value="200" min="0" step="1" />
+        </div>
+      </div>
+      <p class="muted">
+        目前以每小時 <strong id="wagePreview">200</strong> 元計算。之後有調薪再改這裡就好。
+      </p>
+    </section>
+
+    <!-- 今日輸入 -->
+    <section class="card">
+      <div class="card-title">
+        今日班別輸入
+        <span class="badge">Step 1</span>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="dateInput">日期</label>
+          <input type="date" id="dateInput" />
+        </div>
+        <div class="field">
+          <label for="startInput">上班時間（10 分鐘刻度）</label>
+          <input type="time" id="startInput" step="600" />
+        </div>
+        <div class="field">
+          <label for="endInput">下班時間（10 分鐘刻度）</label>
+          <input type="time" id="endInput" step="600" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="breakInput">休息分鐘數</label>
+          <input type="number" id="breakInput" value="40" min="0" step="10" />
+          <div class="muted">休息也是 10 分鐘一跳就好～</div>
+        </div>
+        <div class="field" style="align-self:flex-end;">
+          <label>&nbsp;</label>
+          <div class="checkbox-inline">
+            <input type="checkbox" id="holidayInput" />
+            <span>國定假日（雙薪）</span>
+          </div>
+          <div class="muted">輪班沒有週休，只有國定假日才雙薪。</div>
+        </div>
+      </div>
+
+      <div class="pill-row">
+        <div class="pill">
+          🕒 今日工時：<strong id="todayHoursText">0 小時</strong>
+        </div>
+        <div class="pill dog">
+          💰 今日薪水試算：<strong id="todayPayText">0 元</strong>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="primary" id="addDayBtn">
+          ➕ 加入這一天
+        </button>
+        <span class="muted">
+          會存到下面紀錄，之後打開這個頁面也還在。
+        </span>
+      </div>
+    </section>
+
+    <!-- 總結 + 簡化紀錄 -->
+    <section class="card">
+      <div class="card-title">
+        總結 & 紀錄
+        <span class="badge">Step 2</span>
+      </div>
+
+      <!-- 🔝 總結先放最上面 -->
+      <div class="summary-row" id="summaryRow" style="display:none;">
+        <div class="summary-item">
+          <div class="summary-label">基本工時（≤ 8 小時）</div>
+          <strong id="sumBaseHours">0</strong>
+          <span class="muted">小時</span>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">第 9～10 小時</div>
+          <strong id="sumOt910">0</strong>
+          <span class="muted">小時</span>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">第 11 小時起</div>
+          <strong id="sumOt11">0</strong>
+          <span class="muted">小時</span>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">總薪水</div>
+          <strong id="sumTotalPay">0</strong>
+          <span class="muted">元</span>
+        </div>
+      </div>
+
+      <p class="muted" style="margin-top:6px;">
+        這邊是目前所有已儲存的「總工時 & 總薪水」，打開頁面就可以先看到。
+      </p>
+
+      <div class="section-label-small">每日紀錄</div>
+      <div id="emptyHint" class="chip-empty">
+        還沒有任何紀錄，先在上面輸入一天班別，按「加入這一天」看看吧。
+      </div>
+
+      <div class="records-list" id="recordsList">
+        <!-- JS 產生一條一條紀錄 -->
+      </div>
+
+      <p class="muted" style="margin-top:6px;">
+        所有資料只存在妳這支手機／電腦的瀏覽器裡，不會上傳到任何地方。
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "ningsSalaryRecords_v2_catdog_compact";
+
+    const wageInput = document.getElementById("wage");
+    const wagePreview = document.getElementById("wagePreview");
+    const dateInput = document.getElementById("dateInput");
+    const startInput = document.getElementById("startInput");
+    const endInput = document.getElementById("endInput");
+    const breakInput = document.getElementById("breakInput");
+    const holidayInput = document.getElementById("holidayInput");
+
+    const todayHoursText = document.getElementById("todayHoursText");
+    const todayPayText = document.getElementById("todayPayText");
+
+    const addDayBtn = document.getElementById("addDayBtn");
+    const recordsList = document.getElementById("recordsList");
+
+    const sumBaseHoursEl = document.getElementById("sumBaseHours");
+    const sumOt910El = document.getElementById("sumOt910");
+    const sumOt11El = document.getElementById("sumOt11");
+    const sumTotalPayEl = document.getElementById("sumTotalPay");
+    const emptyHint = document.getElementById("emptyHint");
+    const summaryRow = document.getElementById("summaryRow");
+
+    let records = [];
+
+    function toMinutes(t) {
+      if (!t) return null;
+      const [h, m] = t.split(":").map(Number);
+      return h * 60 + m;
+    }
+
+    function roundTo2(x) {
+      return Math.round(x * 100) / 100;
+    }
+
+    function formatHours(h) {
+      return roundTo2(h).toString();
+    }
+
+    function formatMoney(n) {
+      return Math.round(n).toString();
+    }
+
+    // 🔟 分鐘刻度：自動吸附到最近 10 分鐘
+    function snapTimeTo10Minutes(inputEl) {
+      const val = inputEl.value;
+      if (!val) return;
+      let [h, m] = val.split(":").map(Number);
+      let rounded = Math.round(m / 10) * 10;
+      if (rounded === 60) {
+        h = (h + 1) % 24;
+        rounded = 0;
+      }
+      const hh = String(h).padStart(2, "0");
+      const mm = String(rounded).padStart(2, "0");
+      inputEl.value = `${hh}:${mm}`;
+    }
+
+    function calcDay() {
+      const wage = parseFloat(wageInput.value) || 0;
+      const startMin = toMinutes(startInput.value);
+      const endMinRaw = toMinutes(endInput.value);
+      const breakMin = parseInt(breakInput.value || "0", 10);
+      const isHoliday = holidayInput.checked;
+
+      if (startMin == null || endMinRaw == null || wage <= 0) {
+        return {
+          valid: false,
+          totalHours: 0,
+          baseHours: 0,
+          ot910: 0,
+          ot11: 0,
+          pay: 0
+        };
+      }
+
+      let endMin = endMinRaw;
+      if (endMin <= startMin) {
+        endMin += 24 * 60; // 跨夜
+      }
+
+      let workedMin = endMin - startMin - breakMin;
+      if (workedMin <= 0) {
+        workedMin = 0;
+      }
+
+      const totalHours = workedMin / 60;
+      const baseHours = Math.min(totalHours, 8);
+      let remain = Math.max(totalHours - 8, 0);
+
+      const ot910 = Math.min(remain, 2); // 第 9～10 小時
+      remain -= ot910;
+      const ot11 = Math.max(remain, 0);  // 第 11 小時起
+
+      const holidayMultiplier = isHoliday ? 2 : 1;
+      const basePay = baseHours * wage * holidayMultiplier;
+      const ot910Pay = ot910 * wage * 1.33 * holidayMultiplier;
+      const ot11Pay = ot11 * wage * 1.66 * holidayMultiplier;
+      const pay = basePay + ot910Pay + ot11Pay;
+
+      return {
+        valid: true,
+        totalHours,
+        baseHours,
+        ot910,
+        ot11,
+        pay
+      };
+    }
+
+    function updateTodayPreview() {
+      const info = calcDay();
+      todayHoursText.textContent = formatHours(info.totalHours) + " 小時";
+      todayPayText.textContent = formatMoney(info.pay) + " 元";
+      addDayBtn.disabled = !info.valid || info.totalHours <= 0;
+    }
+
+    function saveToStorage() {
+      try {
+        const data = {
+          wage: parseFloat(wageInput.value) || 0,
+          records
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        console.error("localStorage error:", e);
+      }
+    }
+
+    function loadFromStorage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (data.wage) {
+          wageInput.value = data.wage;
+          wagePreview.textContent = data.wage;
+        }
+        if (Array.isArray(data.records)) {
+          records = data.records;
+        }
+      } catch (e) {
+        console.error("localStorage parse error:", e);
+      }
+    }
+
+    function renderRecords() {
+      recordsList.innerHTML = "";
+
+      if (records.length === 0) {
+        emptyHint.style.display = "block";
+        summaryRow.style.display = "none";
+      } else {
+        emptyHint.style.display = "none";
+        summaryRow.style.display = "flex";
+      }
+
+      let sumBase = 0;
+      let sum910 = 0;
+      let sum11 = 0;
+      let sumPay = 0;
+
+      records.forEach((rec, idx) => {
+        const card = document.createElement("div");
+        card.className = "record-card";
+
+        const left = document.createElement("div");
+        left.className = "record-left";
+
+        const dateLine = document.createElement("div");
+        dateLine.className = "record-date-line";
+        const dateIcon = document.createElement("span");
+        dateIcon.className = "icon";
+        dateIcon.textContent = "📅";
+        const dateText = document.createElement("span");
+        dateText.textContent = rec.date || "(未填日期)";
+        dateLine.appendChild(dateIcon);
+        dateLine.appendChild(dateText);
+
+        const timeEl = document.createElement("div");
+        timeEl.className = "record-time";
+        timeEl.textContent = `${rec.start} ～ ${rec.end}` + (rec.holiday ? "（國假）" : "");
+
+        const hoursEl = document.createElement("div");
+        hoursEl.className = "record-hours";
+        hoursEl.textContent =
+          `總 ${formatHours(rec.baseHours + rec.ot910 + rec.ot11)}h；` +
+          `基本 ${formatHours(rec.baseHours)}h / 9–10h ${formatHours(rec.ot910)}h / 11+h ${formatHours(rec.ot11)}h`;
+
+        left.appendChild(dateLine);
+        left.appendChild(timeEl);
+        left.appendChild(hoursEl);
+
+        const right = document.createElement("div");
+        right.className = "record-right";
+
+        const payEl = document.createElement("div");
+        payEl.className = "record-pay";
+        const payIcon = document.createElement("span");
+        payIcon.className = "icon";
+        payIcon.textContent = "💵";
+        const payText = document.createElement("span");
+        payText.textContent = formatMoney(rec.pay) + " 元";
+        payEl.appendChild(payIcon);
+        payEl.appendChild(payText);
+
+        const delBtn = document.createElement("button");
+        delBtn.className = "danger";
+        delBtn.textContent = "刪除";
+        delBtn.addEventListener("click", () => {
+          records.splice(idx, 1);
+          saveToStorage();
+          renderRecords();
+        });
+
+        right.appendChild(payEl);
+        right.appendChild(delBtn);
+
+        card.appendChild(left);
+        card.appendChild(right);
+        recordsList.appendChild(card);
+
+        sumBase += rec.baseHours;
+        sum910 += rec.ot910;
+        sum11 += rec.ot11;
+        sumPay += rec.pay;
+      });
+
+      sumBaseHoursEl.textContent = formatHours(sumBase);
+      sumOt910El.textContent = formatHours(sum910);
+      sumOt11El.textContent = formatHours(sum11);
+      sumTotalPayEl.textContent = formatMoney(sumPay);
+    }
+
+    // 綁事件
+    wageInput.addEventListener("input", () => {
+      const v = parseFloat(wageInput.value) || 0;
+      wagePreview.textContent = v;
+      updateTodayPreview();
+      saveToStorage();
+    });
+
+    function handleTimeInputSnap() {
+      snapTimeTo10Minutes(this);
+      updateTodayPreview();
+    }
+
+    startInput.addEventListener("change", handleTimeInputSnap);
+    startInput.addEventListener("blur", handleTimeInputSnap);
+    endInput.addEventListener("change", handleTimeInputSnap);
+    endInput.addEventListener("blur", handleTimeInputSnap);
+
+    dateInput.addEventListener("input", updateTodayPreview);
+    breakInput.addEventListener("input", updateTodayPreview);
+    holidayInput.addEventListener("change", updateTodayPreview);
+
+    addDayBtn.addEventListener("click", () => {
+      snapTimeTo10Minutes(startInput);
+      snapTimeTo10Minutes(endInput);
+      const info = calcDay();
+      if (!info.valid || info.totalHours <= 0) return;
+
+      const rec = {
+        date: dateInput.value || "",
+        start: startInput.value || "",
+        end: endInput.value || "",
+        breakMinutes: parseInt(breakInput.value || "0", 10),
+        holiday: holidayInput.checked,
+        baseHours: info.baseHours,
+        ot910: info.ot910,
+        ot11: info.ot11,
+        pay: info.pay
+      };
+      records.push(rec);
+      saveToStorage();
+      renderRecords();
+    });
+
+    // 預設日期今天
+    (function initDate() {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      dateInput.value = `${yyyy}-${mm}-${dd}`;
+    })();
+
+    // 初始化
+    loadFromStorage();
+    renderRecords();
+    updateTodayPreview();
+  </script>
+</body>
+</html>
