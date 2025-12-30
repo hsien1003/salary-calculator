@@ -6,16 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg-gradient: linear-gradient(135deg, #fff5fb, #f5f7ff);
-      --card-bg: #ffffff;
-      --accent: #ff8fb3;          /* 小貓貓粉 */
-      --accent-strong: #ff5f96;
-      --accent-dog: #ffb347;      /* 大狗狗金色 */
-      --accent-soft: rgba(255, 143, 179, 0.1);
+      --bg: linear-gradient(135deg, #f7f3ea, #fdfaf4);
+      --card-bg: #fffcf8;
+      --accent: #d8a657;
+      --accent-strong: #b27a2b;
+      --accent-soft: rgba(216, 166, 87, 0.12);
+      --accent-dog: #ffb347;
       --text-main: #222222;
-      --text-muted: #777777;
-      --border-subtle: #f0e3f4;
+      --text-muted: #78716c;
+      --border-subtle: #e4d8c2;
       --danger: #f0625f;
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.10);
+    }
+
+    body.dark {
+      --bg: radial-gradient(circle at top, #1a1209, #050505);
+      --card-bg: #151515;
+      --accent: #d5a44e;
+      --accent-strong: #f2c76b;
+      --accent-soft: rgba(213, 164, 78, 0.12);
+      --accent-dog: #f2c76b;
+      --text-main: #f5f5f5;
+      --text-muted: #a3a3a3;
+      --border-subtle: #2c2c2c;
+      --danger: #f97373;
+      --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.65);
     }
 
     * {
@@ -26,25 +41,27 @@
       margin: 0;
       min-height: 100vh;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg-gradient);
+      background: var(--bg);
       color: var(--text-main);
       padding: 14px;
       display: flex;
       justify-content: center;
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
     main {
       width: 100%;
-      max-width: 520px; /* 手機優先 */
+      max-width: 560px;
     }
 
     header {
       margin-bottom: 14px;
+      padding-right: 40px;
     }
 
     header h1 {
       margin: 0;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       letter-spacing: 0.03em;
       display: flex;
       align-items: center;
@@ -63,11 +80,14 @@
 
     .tagline {
       margin-top: 4px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--accent-strong);
       display: inline-flex;
       align-items: center;
       gap: 4px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(216, 166, 87, 0.08);
     }
 
     .card {
@@ -75,13 +95,13 @@
       border-radius: 18px;
       padding: 14px 12px;
       margin-bottom: 12px;
-      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(10px);
     }
 
     .card-title {
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       font-weight: 600;
       margin-bottom: 8px;
       display: flex;
@@ -90,7 +110,7 @@
     }
 
     .card-title span.badge {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       padding: 2px 8px;
       border-radius: 999px;
       background: var(--accent-soft);
@@ -110,7 +130,7 @@
     }
 
     label {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       display: block;
       margin-bottom: 4px;
       color: var(--text-muted);
@@ -125,35 +145,44 @@
       border: 1px solid var(--border-subtle);
       font-size: 0.9rem;
       outline: none;
-      background: #fff9fd;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      background: rgba(255, 252, 248, 0.95);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, transform 0.05s ease;
+      color: var(--text-main);
+    }
+
+    body.dark input[type="date"],
+    body.dark input[type="time"],
+    body.dark input[type="number"] {
+      background: #111111;
     }
 
     input[type="date"]:focus,
     input[type="time"]:focus,
     input[type="number"]:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(255, 143, 179, 0.4);
+      box-shadow: 0 0 0 1px rgba(216, 166, 87, 0.50);
       background: #ffffff;
+      transform: translateY(-0.5px);
     }
 
     input[type="checkbox"] {
       transform: scale(1.1);
       margin-right: 6px;
+      accent-color: var(--accent);
     }
 
     .checkbox-inline {
       display: flex;
       align-items: center;
       gap: 4px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       margin-top: 4px;
       color: var(--text-main);
     }
 
     .muted {
       color: var(--text-muted);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
     }
 
     .pill-row {
@@ -170,17 +199,17 @@
       gap: 4px;
       padding: 4px 9px;
       border-radius: 999px;
-      background: #fff2f7;
+      background: rgba(255, 252, 248, 0.95);
       font-size: 0.8rem;
       color: var(--accent-strong);
-      border: 1px solid rgba(255, 143, 179, 0.3);
+      border: 1px solid rgba(216, 166, 87, 0.40);
       white-space: nowrap;
     }
 
     .pill.dog {
-      background: #fff7ec;
-      color: #bf7b1a;
-      border-color: rgba(255, 179, 71, 0.4);
+      background: rgba(255, 244, 221, 0.9);
+      color: #8a5a1a;
+      border-color: rgba(255, 179, 71, 0.5);
     }
 
     .pill strong {
@@ -191,36 +220,42 @@
       padding: 9px 16px;
       border-radius: 999px;
       border: none;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       cursor: pointer;
       white-space: nowrap;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      font-weight: 500;
+      transition: transform 0.08s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
     }
 
     button.primary {
       background: linear-gradient(135deg, var(--accent), var(--accent-dog));
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(255, 143, 179, 0.45);
+      box-shadow: 0 4px 12px rgba(216, 166, 87, 0.55);
       justify-content: center;
     }
 
     button.primary:active {
-      transform: translateY(1px);
-      box-shadow: 0 2px 6px rgba(255, 143, 179, 0.5);
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 2px 6px rgba(216, 166, 87, 0.60);
     }
 
     button.danger {
       background: var(--danger);
       color: #ffffff;
       justify-content: center;
+      font-size: 0.76rem;
+      padding: 6px 10px;
+      box-shadow: 0 3px 8px rgba(240, 98, 95, 0.45);
     }
 
     button:disabled {
       opacity: 0.55;
       cursor: not-allowed;
       box-shadow: none;
+      transform: none;
     }
 
     .btn-row {
@@ -229,78 +264,6 @@
       gap: 8px;
       align-items: center;
       margin-top: 6px;
-    }
-
-    /* 記錄列表變成「一條一條簡潔版」 */
-    .records-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 4px;
-      max-height: 260px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
-    .record-card {
-      border-radius: 12px;
-      border: 1px solid var(--border-subtle);
-      background: #fffdfd;
-      padding: 6px 8px;
-      font-size: 0.78rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .record-left {
-      flex: 1 1 auto;
-      min-width: 0;
-    }
-
-    .record-date-line {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-weight: 600;
-    }
-
-    .record-date-line span.icon {
-      font-size: 1rem;
-    }
-
-    .record-time {
-      font-size: 0.76rem;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .record-hours {
-      font-size: 0.76rem;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .record-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 4px;
-      white-space: nowrap;
-    }
-
-    .record-pay {
-      font-size: 0.86rem;
-      font-weight: 600;
-      color: var(--accent-strong);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .record-pay span.icon {
-      font-size: 1rem;
     }
 
     .summary-row {
@@ -314,13 +277,17 @@
       flex: 1 1 140px;
       min-width: 140px;
       border-radius: 12px;
-      background: #fff9fd;
+      background: rgba(255, 252, 248, 0.96);
       border: 1px solid var(--border-subtle);
       padding: 6px 8px;
       font-size: 0.78rem;
       display: flex;
       flex-direction: column;
       gap: 2px;
+    }
+
+    body.dark .summary-item {
+      background: #111111;
     }
 
     .summary-item strong {
@@ -341,7 +308,179 @@
       font-size: 0.78rem;
       color: var(--text-muted);
       margin-top: 8px;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
+    }
+
+    .months-container {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 320px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .month-card {
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 252, 248, 0.97);
+      padding: 6px 8px;
+      font-size: 0.8rem;
+    }
+
+    body.dark .month-card {
+      background: #111111;
+    }
+
+    .month-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      gap: 6px;
+    }
+
+    .month-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .month-title {
+      font-weight: 600;
+    }
+
+    .month-sub {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .month-toggle {
+      background: transparent;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 3px 8px;
+      font-size: 0.78rem;
+      box-shadow: none;
+      color: var(--text-muted);
+      min-width: 44px;
+      justify-content: center;
+    }
+
+    .month-card.open .month-toggle {
+      color: var(--accent-strong);
+      border-color: rgba(216, 166, 87, 0.6);
+      background: rgba(216, 166, 87, 0.08);
+    }
+
+    .month-body {
+      margin-top: 4px;
+      display: none;
+      border-top: 1px dashed var(--border-subtle);
+      padding-top: 4px;
+    }
+
+    .month-card.open .month-body {
+      display: block;
+      animation: monthFade 0.18s ease-out;
+    }
+
+    @keyframes monthFade {
+      from { opacity: 0; transform: translateY(-2px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .day-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 3px 0;
+    }
+
+    .day-main {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .day-line {
+      font-size: 0.78rem;
+    }
+
+    .day-meta {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .day-tags {
+      display: inline-flex;
+      gap: 4px;
+      margin-left: 4px;
+      font-size: 0.7rem;
+    }
+
+    .tag-pill {
+      padding: 1px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(216, 166, 87, 0.5);
+      color: var(--accent-strong);
+      background: rgba(216, 166, 87, 0.08);
+    }
+
+    .day-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .day-pay {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .day-pay span.icon {
+      font-size: 1rem;
+    }
+
+    /* 主題切換按鈕 */
+    .theme-toggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 20;
+      background: rgba(17, 17, 17, 0.06);
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: 1px solid rgba(228, 216, 194, 0.9);
+      font-size: 0.85rem;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+      backdrop-filter: blur(8px);
+      color: #5b3b16;
+    }
+
+    body.dark .theme-toggle {
+      background: rgba(0, 0, 0, 0.75);
+      border-color: #3a2a12;
+      color: #f2c76b;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+    }
+
+    .theme-toggle span {
+      display: inline-block;
+      transition: transform 0.15s ease;
+    }
+
+    .theme-toggle:active span {
+      transform: translateY(1px) rotate(-10deg);
     }
 
     @media (max-width: 480px) {
@@ -349,7 +488,7 @@
         padding: 10px;
       }
       header h1 {
-        font-size: 1.35rem;
+        font-size: 1.3rem;
       }
       .card {
         padding: 12px 10px;
@@ -367,6 +506,7 @@
       }
       .btn-row button {
         width: 100%;
+        justify-content: center;
       }
       .summary-item {
         flex: 1 1 100%;
@@ -375,6 +515,10 @@
   </style>
 </head>
 <body>
+  <button id="themeToggle" class="theme-toggle" aria-label="切換主題">
+    <span>🌞🐶</span>
+  </button>
+
   <main>
     <header>
       <h1>
@@ -383,7 +527,7 @@
       </h1>
       <p>小貓貓的打工班表，交給大狗狗幫妳算好薪水。</p>
       <div class="tagline">
-        <span>💗</span> 10 分鐘為單位，自動幫妳切 8 小時 / 9–10 / 11 小時以上。
+        <span>⏱</span> 10 分鐘為單位，自動切基本 / 加班 1.33 / 1.66 倍。
       </div>
     </header>
 
@@ -434,9 +578,9 @@
           <label>&nbsp;</label>
           <div class="checkbox-inline">
             <input type="checkbox" id="holidayInput" />
-            <span>國定假日（雙薪）</span>
+            <span>國定假日（加發雙薪）</span>
           </div>
-          <div class="muted">輪班沒有週休，只有國定假日才雙薪。</div>
+          <div class="muted">只有勞基法國定假日才算雙薪，其他照平日。</div>
         </div>
       </div>
 
@@ -459,14 +603,13 @@
       </div>
     </section>
 
-    <!-- 總結 + 簡化紀錄 -->
+    <!-- 月總表 + 紀錄 -->
     <section class="card">
       <div class="card-title">
-        總結 & 紀錄
+        總結 & 月總表
         <span class="badge">Step 2</span>
       </div>
 
-      <!-- 🔝 總結先放最上面 -->
       <div class="summary-row" id="summaryRow" style="display:none;">
         <div class="summary-item">
           <div class="summary-label">基本工時（≤ 8 小時）</div>
@@ -474,12 +617,12 @@
           <span class="muted">小時</span>
         </div>
         <div class="summary-item">
-          <div class="summary-label">第 9～10 小時</div>
+          <div class="summary-label">第 9～10 小時（1.33 倍）</div>
           <strong id="sumOt910">0</strong>
           <span class="muted">小時</span>
         </div>
         <div class="summary-item">
-          <div class="summary-label">第 11 小時起</div>
+          <div class="summary-label">第 11 小時起（1.66 倍）</div>
           <strong id="sumOt11">0</strong>
           <span class="muted">小時</span>
         </div>
@@ -491,16 +634,16 @@
       </div>
 
       <p class="muted" style="margin-top:6px;">
-        這邊是目前所有已儲存的「總工時 & 總薪水」，打開頁面就可以先看到。
+        這邊是目前所有已儲存的「總工時 & 總薪水」，以及每個月份的展開明細。
       </p>
 
-      <div class="section-label-small">每日紀錄</div>
+      <div class="section-label-small">月總表</div>
       <div id="emptyHint" class="chip-empty">
         還沒有任何紀錄，先在上面輸入一天班別，按「加入這一天」看看吧。
       </div>
 
-      <div class="records-list" id="recordsList">
-        <!-- JS 產生一條一條紀錄 -->
+      <div class="months-container" id="monthsContainer">
+        <!-- JS 產生月卡片 -->
       </div>
 
       <p class="muted" style="margin-top:6px;">
@@ -509,8 +652,8 @@
     </section>
   </main>
 
-  <script>
-    const STORAGE_KEY = "ningsSalaryRecords_v2_catdog_compact";
+    <script>
+    const STORAGE_KEY = "ningsSalaryRecords_v3_dogmode";
 
     const wageInput = document.getElementById("wage");
     const wagePreview = document.getElementById("wagePreview");
@@ -524,7 +667,6 @@
     const todayPayText = document.getElementById("todayPayText");
 
     const addDayBtn = document.getElementById("addDayBtn");
-    const recordsList = document.getElementById("recordsList");
 
     const sumBaseHoursEl = document.getElementById("sumBaseHours");
     const sumOt910El = document.getElementById("sumOt910");
@@ -532,12 +674,20 @@
     const sumTotalPayEl = document.getElementById("sumTotalPay");
     const emptyHint = document.getElementById("emptyHint");
     const summaryRow = document.getElementById("summaryRow");
+    const monthsContainer = document.getElementById("monthsContainer");
+
+    const themeToggleBtn = document.getElementById("themeToggle");
 
     let records = [];
+    let currentTheme = "light";
 
     function toMinutes(t) {
       if (!t) return null;
-      const [h, m] = t.split(":").map(Number);
+      const parts = t.split(":");
+      if (parts.length !== 2) return null;
+      const h = Number(parts[0]);
+      const m = Number(parts[1]);
+      if (Number.isNaN(h) || Number.isNaN(m)) return null;
       return h * 60 + m;
     }
 
@@ -553,11 +703,11 @@
       return Math.round(n).toString();
     }
 
-    // 🔟 分鐘刻度：自動吸附到最近 10 分鐘
     function snapTimeTo10Minutes(inputEl) {
       const val = inputEl.value;
       if (!val) return;
       let [h, m] = val.split(":").map(Number);
+      if (Number.isNaN(h) || Number.isNaN(m)) return;
       let rounded = Math.round(m / 10) * 10;
       if (rounded === 60) {
         h = (h + 1) % 24;
@@ -568,6 +718,10 @@
       inputEl.value = `${hh}:${mm}`;
     }
 
+    // ✅ 正確版：國定假日只有「基本工時」雙薪
+    //   基本 8 小時：平日 1 倍，國假 2 倍
+    //   第 9～10 小時：一律 1.33 倍（不再乘 2）
+    //   第 11 小時起：一律 1.66 倍（不再乘 2）
     function calcDay() {
       const wage = parseFloat(wageInput.value) || 0;
       const startMin = toMinutes(startInput.value);
@@ -588,7 +742,7 @@
 
       let endMin = endMinRaw;
       if (endMin <= startMin) {
-        endMin += 24 * 60; // 跨夜
+        endMin += 24 * 60;
       }
 
       let workedMin = endMin - startMin - breakMin;
@@ -597,17 +751,23 @@
       }
 
       const totalHours = workedMin / 60;
+
       const baseHours = Math.min(totalHours, 8);
       let remain = Math.max(totalHours - 8, 0);
 
-      const ot910 = Math.min(remain, 2); // 第 9～10 小時
+      const ot910 = Math.min(remain, 2);
       remain -= ot910;
-      const ot11 = Math.max(remain, 0);  // 第 11 小時起
 
-      const holidayMultiplier = isHoliday ? 2 : 1;
-      const basePay = baseHours * wage * holidayMultiplier;
-      const ot910Pay = ot910 * wage * 1.33 * holidayMultiplier;
-      const ot11Pay = ot11 * wage * 1.66 * holidayMultiplier;
+      const ot11 = Math.max(remain, 0);
+
+      // 先算「不含國假加成」的基本 & 加班
+      const basePayNormal = baseHours * wage;
+      const ot910Pay = ot910 * wage * 1.33;
+      const ot11Pay = ot11 * wage * 1.66;
+
+      // 只有基本工時在國定假日雙薪
+      const basePay = isHoliday ? basePayNormal * 2 : basePayNormal;
+
       const pay = basePay + ot910Pay + ot11Pay;
 
       return {
@@ -631,7 +791,8 @@
       try {
         const data = {
           wage: parseFloat(wageInput.value) || 0,
-          records
+          theme: currentTheme,
+          records: records
         };
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       } catch (e) {
@@ -642,7 +803,7 @@
     function loadFromStorage() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return;
+      if (!raw) return;
         const data = JSON.parse(raw);
         if (data.wage) {
           wageInput.value = data.wage;
@@ -651,17 +812,36 @@
         if (Array.isArray(data.records)) {
           records = data.records;
         }
+        if (data.theme === "dark" || data.theme === "light") {
+          applyTheme(data.theme);
+        }
       } catch (e) {
         console.error("localStorage parse error:", e);
       }
     }
 
+    function applyTheme(theme) {
+      currentTheme = theme;
+      if (theme === "dark") {
+        document.body.classList.add("dark");
+        themeToggleBtn.querySelector("span").textContent = "🌙🐕‍🦺";
+      } else {
+        document.body.classList.remove("dark");
+        themeToggleBtn.querySelector("span").textContent = "🌞🐶";
+      }
+    }
+
     function renderRecords() {
-      recordsList.innerHTML = "";
+      monthsContainer.innerHTML = "";
 
       if (records.length === 0) {
         emptyHint.style.display = "block";
         summaryRow.style.display = "none";
+        sumBaseHoursEl.textContent = "0";
+        sumOt910El.textContent = "0";
+        sumOt11El.textContent = "0";
+        sumTotalPayEl.textContent = "0";
+        return;
       } else {
         emptyHint.style.display = "none";
         summaryRow.style.display = "flex";
@@ -672,79 +852,198 @@
       let sum11 = 0;
       let sumPay = 0;
 
+      const monthMap = {};
+
       records.forEach((rec, idx) => {
-        const card = document.createElement("div");
-        card.className = "record-card";
+        const base = Number(rec.baseHours) || 0;
+        const ot910 = Number(rec.ot910) || 0;
+        const ot11 = Number(rec.ot11) || 0;
+        const pay = Number(rec.pay) || 0;
 
-        const left = document.createElement("div");
-        left.className = "record-left";
+        sumBase += base;
+        sum910 += ot910;
+        sum11 += ot11;
+        sumPay += pay;
 
-        const dateLine = document.createElement("div");
-        dateLine.className = "record-date-line";
-        const dateIcon = document.createElement("span");
-        dateIcon.className = "icon";
-        dateIcon.textContent = "📅";
-        const dateText = document.createElement("span");
-        dateText.textContent = rec.date || "(未填日期)";
-        dateLine.appendChild(dateIcon);
-        dateLine.appendChild(dateText);
+        let monthKey = "未填日期";
+        if (rec.date && rec.date.length >= 7) {
+          monthKey = rec.date.slice(0, 7);
+        }
 
-        const timeEl = document.createElement("div");
-        timeEl.className = "record-time";
-        timeEl.textContent = `${rec.start} ～ ${rec.end}` + (rec.holiday ? "（國假）" : "");
+        if (!monthMap[monthKey]) {
+          monthMap[monthKey] = {
+            baseHours: 0,
+            ot910: 0,
+            ot11: 0,
+            pay: 0,
+            list: []
+          };
+        }
 
-        const hoursEl = document.createElement("div");
-        hoursEl.className = "record-hours";
-        hoursEl.textContent =
-          `總 ${formatHours(rec.baseHours + rec.ot910 + rec.ot11)}h；` +
-          `基本 ${formatHours(rec.baseHours)}h / 9–10h ${formatHours(rec.ot910)}h / 11+h ${formatHours(rec.ot11)}h`;
+        monthMap[monthKey].baseHours += base;
+        monthMap[monthKey].ot910 += ot910;
+        monthMap[monthKey].ot11 += ot11;
+        monthMap[monthKey].pay += pay;
 
-        left.appendChild(dateLine);
-        left.appendChild(timeEl);
-        left.appendChild(hoursEl);
-
-        const right = document.createElement("div");
-        right.className = "record-right";
-
-        const payEl = document.createElement("div");
-        payEl.className = "record-pay";
-        const payIcon = document.createElement("span");
-        payIcon.className = "icon";
-        payIcon.textContent = "💵";
-        const payText = document.createElement("span");
-        payText.textContent = formatMoney(rec.pay) + " 元";
-        payEl.appendChild(payIcon);
-        payEl.appendChild(payText);
-
-        const delBtn = document.createElement("button");
-        delBtn.className = "danger";
-        delBtn.textContent = "刪除";
-        delBtn.addEventListener("click", () => {
-          records.splice(idx, 1);
-          saveToStorage();
-          renderRecords();
+        monthMap[monthKey].list.push({
+          index: idx,
+          rec: rec
         });
-
-        right.appendChild(payEl);
-        right.appendChild(delBtn);
-
-        card.appendChild(left);
-        card.appendChild(right);
-        recordsList.appendChild(card);
-
-        sumBase += rec.baseHours;
-        sum910 += rec.ot910;
-        sum11 += rec.ot11;
-        sumPay += rec.pay;
       });
 
       sumBaseHoursEl.textContent = formatHours(sumBase);
       sumOt910El.textContent = formatHours(sum910);
       sumOt11El.textContent = formatHours(sum11);
       sumTotalPayEl.textContent = formatMoney(sumPay);
+
+      const monthKeys = Object.keys(monthMap).sort((a, b) => {
+        if (a === "未填日期") return 1;
+        if (b === "未填日期") return -1;
+        return a < b ? 1 : -1;
+      });
+
+      monthKeys.forEach((monthKey) => {
+        const monthData = monthMap[monthKey];
+
+        monthData.list.sort((a, b) => {
+          const da = a.rec.date || "";
+          const db = b.rec.date || "";
+          if (da === db) {
+            const sa = a.rec.start || "";
+            const sb = b.rec.start || "";
+            return sa < sb ? -1 : sa > sb ? 1 : 0;
+          }
+          return da < db ? -1 : 1;
+        });
+
+        const monthCard = document.createElement("div");
+        monthCard.className = "month-card";
+
+        const header = document.createElement("div");
+        header.className = "month-header";
+
+        const main = document.createElement("div");
+        main.className = "month-main";
+
+        const title = document.createElement("div");
+        title.className = "month-title";
+        if (monthKey === "未填日期") {
+          title.textContent = "未填日期";
+        } else {
+          const y = monthKey.slice(0, 4);
+          const m = monthKey.slice(5, 7);
+          title.textContent = `${y} 年 ${m} 月`;
+        }
+
+        const sub = document.createElement("div");
+        sub.className = "month-sub";
+        const totalHours = monthData.baseHours + monthData.ot910 + monthData.ot11;
+        sub.textContent = `總工時 ${formatHours(totalHours)} 小時 · 總薪水 ${formatMoney(monthData.pay)} 元`;
+
+        main.appendChild(title);
+        main.appendChild(sub);
+
+        const toggle = document.createElement("button");
+        toggle.type = "button";
+        toggle.className = "month-toggle";
+        toggle.textContent = "展開 ▼";
+
+        header.appendChild(main);
+        header.appendChild(toggle);
+
+        const body = document.createElement("div");
+        body.className = "month-body";
+
+        monthData.list.forEach((item) => {
+          const rec = item.rec;
+          const idx = item.index;
+          const row = document.createElement("div");
+          row.className = "day-row";
+          row.dataset.index = String(idx);
+
+          const left = document.createElement("div");
+          left.className = "day-main";
+
+          const line = document.createElement("div");
+          line.className = "day-line";
+
+          const dateText = rec.date || "未填";
+          const startText = rec.start || "??:??";
+          const endText = rec.end || "??:??";
+          const totalH = (Number(rec.baseHours) || 0) + (Number(rec.ot910) || 0) + (Number(rec.ot11) || 0);
+
+          line.textContent = `${dateText} ｜ ${startText}～${endText} ｜ ${formatHours(totalH)}h`;
+
+          const meta = document.createElement("div");
+          meta.className = "day-meta";
+          meta.textContent =
+            `基本 ${formatHours(rec.baseHours)}h · 9–10h ${formatHours(rec.ot910)}h · 11+h ${formatHours(rec.ot11)}h`;
+
+          const tags = document.createElement("span");
+          tags.className = "day-tags";
+          if (rec.holiday) {
+            const tag = document.createElement("span");
+            tag.className = "tag-pill";
+            tag.textContent = "國定假日×2（只雙薪基本）";
+            tags.appendChild(tag);
+          }
+
+          meta.appendChild(tags);
+          left.appendChild(line);
+          left.appendChild(meta);
+
+          const right = document.createElement("div");
+          right.className = "day-right";
+
+          const payEl = document.createElement("div");
+          payEl.className = "day-pay";
+          const icon = document.createElement("span");
+          icon.className = "icon";
+          icon.textContent = "💵";
+          const payText = document.createElement("span");
+          payText.textContent = formatMoney(rec.pay) + " 元";
+          payEl.appendChild(icon);
+          payEl.appendChild(payText);
+
+          const delBtn = document.createElement("button");
+          delBtn.type = "button";
+          delBtn.className = "danger";
+          delBtn.textContent = "刪除";
+          delBtn.addEventListener("click", () => {
+            const realIdx = parseInt(row.dataset.index || "-1", 10);
+            if (!Number.isNaN(realIdx) && realIdx >= 0 && realIdx < records.length) {
+              records.splice(realIdx, 1);
+              saveToStorage();
+              renderRecords();
+            }
+          });
+
+          right.appendChild(payEl);
+          right.appendChild(delBtn);
+
+          row.appendChild(left);
+          row.appendChild(right);
+
+          body.appendChild(row);
+        });
+
+        header.addEventListener("click", (ev) => {
+          const isOpen = monthCard.classList.contains("open");
+          if (isOpen) {
+            monthCard.classList.remove("open");
+            toggle.textContent = "展開 ▼";
+          } else {
+            monthCard.classList.add("open");
+            toggle.textContent = "收合 ▲";
+          }
+        });
+
+        monthCard.appendChild(header);
+        monthCard.appendChild(body);
+        monthsContainer.appendChild(monthCard);
+      });
     }
 
-    // 綁事件
     wageInput.addEventListener("input", () => {
       const v = parseFloat(wageInput.value) || 0;
       wagePreview.textContent = v;
@@ -783,24 +1082,35 @@
         ot11: info.ot11,
         pay: info.pay
       };
+
       records.push(rec);
       saveToStorage();
       renderRecords();
     });
 
-    // 預設日期今天
-    (function initDate() {
+    function initDate() {
       const today = new Date();
       const yyyy = today.getFullYear();
       const mm = String(today.getMonth() + 1).padStart(2, "0");
       const dd = String(today.getDate()).padStart(2, "0");
       dateInput.value = `${yyyy}-${mm}-${dd}`;
-    })();
+    }
 
-    // 初始化
+    themeToggleBtn.addEventListener("click", () => {
+      const next = currentTheme === "dark" ? "light" : "dark";
+      applyTheme(next);
+      saveToStorage();
+    });
+
+    initDate();
     loadFromStorage();
     renderRecords();
     updateTodayPreview();
-  </script>
+
+    if (!localStorage.getItem(STORAGE_KEY)) {
+      applyTheme("light");
+    }
+</script>
 </body>
 </html>
+
